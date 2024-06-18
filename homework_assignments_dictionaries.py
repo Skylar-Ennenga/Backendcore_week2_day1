@@ -44,52 +44,49 @@ service_tickets = {
 }
 
 def open_ticket(service_tickets): 
-    input_customer = input("Please tell me you name your name: ")
-    input_issue = input("PLease enter the issue you are experiencing: ")
-    ticket_number = "Ticket" + str(len(service_tickets) + 1)
-    service_tickets[ticket_number] = {"Customer": input_customer, "Issue": input_issue, "Status": "open"}
-    print(f"{ticket_number} has been opened for {input_customer} with {input_issue} issue")
+    input_customer = input("Please tell me you name your name: ") # get customer name
+    input_issue = input("PLease enter the issue you are experiencing: ") # get issue
+    ticket_number = "Ticket" + str(len(service_tickets) + 1) # take the current ticket number and add 1 to it
+    service_tickets[ticket_number] = {"Customer": input_customer, "Issue": input_issue, "Status": "open"} # add the new ticket to the service_tickets dictionary
+    print(f"{ticket_number} has been opened for {input_customer} with {input_issue} issue") # take all iputs provided and print them out let them know the ticket has been opened
 
 
 def ticket_status(service_tickets):
-    # user_input = input("What ticket do you need to change the staus of? Ticket#: ")
-    # user_input =  user_input.capitalize()
-    
     while True:
         user_input = input("What ticket do you need to change the staus of? Ticket#: ")
         user_input =  user_input.capitalize()
-        if user_input in service_tickets:
-            try:
+        if user_input in service_tickets: # check if the ticket exists
+            try: # if the ticket exists ask the user to input the status they would like to change it to
                 status_input = int(input("What is the current status of this ticket?: 1. open 2. closed "))
                 if status_input == 1:
-                    service_tickets[user_input]["Status"] = "open"
-                    print(f"{user_input} in now set to open")
-                    break
+                    service_tickets[user_input]["Status"] = "open" #if they choose 1 it opens the dictionary looking for the user input ticket and changes the status to open
+                    print(f"{user_input} in now set to open") # prompts that its now open
+                    break # breaks the loop
                 elif status_input == 2:
-                        service_tickets[user_input]["Status"] = "closed"
-                        print(f"{user_input} in now set to closed")
+                        service_tickets[user_input]["Status"] = "closed" #if they choose 2 it opens the dictionary looking for the user input ticket and changes the status to closed
+                        print(f"{user_input} in now set to closed")  # prompts that its now closed
                         break
                 else:
-                        print("Please enter a valid number")
+                        print("Please enter a valid number") # if the user enters a number that is not 1 or 2 it prompts them to enter a valid number
             except ValueError:
-                print("Please enter a valid number")
+                print("Please enter a valid number")   # if user enter something other then numbers prpmpts to enter a number
         else:
-            print("Ticket does not exist")
+            print("Ticket does not exist") #if the user iputs anything other then ticket# it prompts that the ticket does not exist
             
 
 
 
 def display_tickets(service_tickets): # display all tickets
         print("Here are all the tickets: ")
-        for ticket, info in service_tickets.items():
-            print(f"{ticket}:")
-            for key, value in info.items():
-                print(f"        {key}: {value}")
+        for ticket, info in service_tickets.items(): #loop through the dictionary to set the key as a variable
+            print(f"{ticket}:") #print the key variable (Ticket#)
+            for key, value in info.items(): #loop through the dictionary to set the key and value as variables
+                print(f"        {key}: {value}") #print out the info in the dictionary
 
 def filter_tickets(service_tickets):
     user_input = input("What status would you like to filter by? 'open' or 'closed': ")
     for ticket, info in service_tickets.items():
-        if info["Status"] == user_input:
+        if info["Status"] == user_input: # same print out as above but only showe the tickets that = the user input
             print(f"{ticket}:")
             for key, value in info.items():
                 print(f"        {key}: {value}")
@@ -104,13 +101,13 @@ def main(service_tickets):
             """)
         user_choice = input("Please tell me what you would like to do: ")
         
-        if user_choice == "1":
+        if user_choice == "1": # if user chooses 1 it runs the open_ticket function
             open_ticket(service_tickets)
-        elif user_choice == "2":
+        elif user_choice == "2": # if user chooses 2 it runs the ticket_status function
             ticket_status(service_tickets)
-        elif user_choice == "3":
+        elif user_choice == "3":# if user chooses 3 it runs the display_tickets function
             display_tickets(service_tickets)
-        elif user_choice == "4":
+        elif user_choice == "4":# if user chooses 4 it runs the filter_tickets function
             filter_tickets(service_tickets)
 
-main(service_tickets)
+main(service_tickets) #runs the main function
